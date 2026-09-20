@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Cantilevered-grocery-store": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
