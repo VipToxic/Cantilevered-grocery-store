@@ -130,7 +130,7 @@
 
                             $"Продукт под номером {i + 1}: {products[keybordBasketArray[i] - 1]} " +
                             $"стоимость: {ProductCost[keybordBasketArray[i] - 1]} рублей в кг" +
-                            $" количество в начличии {productQuantity[keybordBasketArray[i] - 1]}"
+                            $" количество в наличии {productQuantity[keybordBasketArray[i] - 1]}"
 
                             );
                     }
