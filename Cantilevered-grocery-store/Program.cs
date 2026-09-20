@@ -12,11 +12,11 @@
 
                     // Список продуктов
                     string[] products = {
-                        "Яблоко", // весс 150 грм
-                        "Апельсин", // весс 150 грм
-                        "Картошка", // 100 грм
-                        "Бананы", // 150 грм
-                        "Котята" // 150 грм
+                        "Яблоко весс 1шт 150 грм", // весс 150 грм
+                        "Апельсин весс 1шт 150 грм", // весс 150 грм
+                        "Картошка весс 1шт 100 грм", // 100 грм
+                        "Бананы весс 1шт 150 грм", // 150 грм
+                        "Котята весс 1шт 150 грм" // 150 грм
                      };
 
                     // Стоимость продуктов
@@ -28,6 +28,13 @@
                         1000
                     };
 
+                    double[] ProductWeight = { 
+                        150,
+                        150,
+                        100,
+                        150,
+                        150
+                    };
 
                     // количество продуктов
                     int[] productQuantity =
@@ -133,13 +140,76 @@
                             $" количество в наличии {productQuantity[keybordBasketArray[i] - 1]}"
 
                             );
+
                     }
+
+                    // Ввод количиство продуктов
+                    Console.WriteLine();
+                    int[] keybordQuantityArray = new int[numbers];
+
+                    int itemNumberQ = -1;
+
+                    for (int i = 0; i < keybordQuantityArray.Length; i++)
+                    {
+                        // Просим ввести количиство n ного товара
+                        Console.WriteLine("Введите '0' если хотите выйти");
+                        Console.Write($"Введите количиство: {products[keybordBasketArray[i] - 1]} " +
+                                      $"в наличии: {productQuantity[keybordBasketArray[i] - 1]}: ");
+
+                        itemNumberQ = int.Parse(Console.ReadLine());
+
+                        // проверяем переменную на 0
+                        if (itemNumberQ == 0)
+                        {
+                            // если значение true то заканчиваем цикл
+                            Console.WriteLine("До свидания возврашайтесь снова..");
+                            break;
+                        }
+
+                        //если значение false то к текушему индексу "i" добовляем полученное значение
+                        keybordQuantityArray[i] = itemNumberQ;
+
+                        Console.WriteLine(keybordQuantityArray[i]);
+                    }
+
+                    // Вторая проверка для выхода из основного цикла
+                    if (itemNumberQ == 0)
+                    {
+                        break;
+                    }
+
+                    // Итоговый расчет цены и продуктов
+                    double[] finalWeightOfProducts = new double[numbers];
+
+                    // Вычисляем весс товара 
+                    for (int i = 0; i < finalWeightOfProducts.Length; i++)
+                    {
+
+                        double result = keybordQuantityArray[i] * ProductWeight[keybordBasketArray[i] - 1];
+                        result = result / 1000;
+
+                        finalWeightOfProducts[i] = result;
+
+                    }
+
+
+
+
+                    
 
                 }
             }
-            catch
+            catch (FormatException ex)
             {
-
+                Console.WriteLine($"Введите коректные данные: {ex.Message}");
+            }
+            catch (OverflowException ex)
+            {
+                Console.WriteLine($"Длина массива не может быть отрицательным: {ex.Message}");
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Console.WriteLine($"Размер массива переполнен: {ex.Message}");
             }
         }
     }
