@@ -197,6 +197,8 @@
                     // products[keybordBasketArray[i] - 1] это Индекс продукта например Яблоко -1 потому что
                     // пользователь введет 1 2 3 размер массива = 3 но индексы 0 1 2 keybordBasketArray[i] = 1 а - 1 делает его 0
 
+                    //
+
                 }
             }
             catch (FormatException ex)
@@ -211,8 +213,6 @@
             {
                 Console.WriteLine($"Размер массива переполнен: {ex.Message}");
             }
-
-
         }
     }
 }
