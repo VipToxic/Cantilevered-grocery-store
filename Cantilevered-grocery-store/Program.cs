@@ -177,7 +177,7 @@
                         break;
                     }
 
-                    // Итоговый расчет цены и продуктов
+                    // Итоговый расчет весса и продуктов
                     double[] finalWeightOfProducts = new double[numbers];
 
                     // Вычисляем весс товара 
@@ -191,13 +191,59 @@
 
                     }
 
+                    // Расчет ценыы продуктов
+                    double[] finalPriceOfProducts = new double[numbers];
+                    Console.WriteLine("-------Итоговая цена------");
+                    for (int i = 0; i < finalPriceOfProducts.Length; i++)
+                    {
+                        double price = ProductCost[keybordBasketArray[i] - 1] * finalWeightOfProducts[i];
+                        finalPriceOfProducts[i] = price;
+                        Console.WriteLine($"Продукт {i + 1}: {products[keybordBasketArray[i] - 1]}, итоговый весс: {finalWeightOfProducts[i]}, стоимость: {finalPriceOfProducts[i]}");
+                    }
+                    Console.WriteLine($"");
 
-                    // Добавить расчет обшей цены продуктов и оплаты продуктов
-                    // НЕ ЗАБЫВАТЬ
-                    // products[keybordBasketArray[i] - 1] это Индекс продукта например Яблоко -1 потому что
-                    // пользователь введет 1 2 3 размер массива = 3 но индексы 0 1 2 keybordBasketArray[i] = 1 а - 1 делает его 0
 
-                    // Начну учиться в 01:00
+                    // Итоговый расчет
+                    double finSum = 0;
+
+                    for (int i = 0; i < finalPriceOfProducts.Length; i++)
+                    {
+                        finSum += finalPriceOfProducts[i];
+                    }
+
+
+                    // Получение оплаты
+                    double finalPayment = 0;
+
+                    while (finalPayment < finSum)
+                    {
+                        Console.WriteLine("Введите '0' если хотите выйти...");
+                        Console.Write($"К оплате, {finSum} рублей: ");
+
+                        double finalPayment2 = double.Parse(Console.ReadLine());
+                        finalPayment = finalPayment2;
+
+                        if (finalPayment == 0)
+                        {
+                            break;
+                        }
+
+                        if (finalPayment < finSum)
+                        {
+    
+                            Console.WriteLine("Введенная сумма недостаточно!");
+                            continue;
+                        }
+                    }
+
+                    if (finalPayment == 0)
+                    {
+                        Console.WriteLine("Спасиобо что пришли удачного вам дня...");
+                        break;
+                    }
+
+                    Console.WriteLine("Оплата прошла успешно возврашайтесь снова :)");
+        
 
                 }
             }
