@@ -1,4 +1,6 @@
-﻿namespace Cantilevered_grocery_store
+﻿using System.Threading.Channels;
+
+namespace Cantilevered_grocery_store
 {
     internal class Program
     {
@@ -151,23 +153,43 @@
 
                     for (int i = 0; i < keybordQuantityArray.Length; i++)
                     {
-                        // Просим ввести количиство n ного товара
-                        Console.WriteLine("Введите '0' если хотите выйти");
-                        Console.Write($"Введите количиство: {products[keybordBasketArray[i] - 1]} " +
-                                      $"в наличии: {productQuantity[keybordBasketArray[i] - 1]}: ");
-
-                        itemNumberQ = int.Parse(Console.ReadLine());
-
-                        // проверяем переменную на 0
-                        if (itemNumberQ == 0)
+                        
+                        bool stoping = true;
+                        while (stoping == true)
                         {
-                            // если значение true то заканчиваем цикл
-                            Console.WriteLine("До свидания возврашайтесь снова..");
-                            break;
+                            // Просим ввести количиство n ного товара
+                            Console.WriteLine("Введите '0' если хотите выйти");
+                            Console.Write($"Введите количиство: {products[keybordBasketArray[i] - 1]} " +
+                                          $"в наличии: {productQuantity[keybordBasketArray[i] - 1]}: ");
+                            itemNumberQ = int.Parse(Console.ReadLine());
+
+                            // проверяем переменную на 0
+                            if (itemNumberQ == 0)
+                            {
+                                // если значение true то заканчиваем цикл
+                                Console.WriteLine("До свидания возврашайтесь снова..");
+                                break;
+                            }
+                            if (itemNumberQ > productQuantity[keybordBasketArray[i] - 1])
+                            {
+                                Console.WriteLine($"Недостаточно товаров в наличии {productQuantity[keybordBasketArray[i] - 1]} штук");
+                                continue;
+                            }
+                            else
+                            {
+                                //если значение false то к текушему индексу "i" добовляем полученное значение
+                                keybordQuantityArray[i] = itemNumberQ;
+                                stoping = false;
+                            }
+
+                            // проверяем переменную на 0
+                            if (itemNumberQ == 0)
+                            {
+                                Console.WriteLine("До свидания возврашайтесь снова..");
+                                break;
+                            }
                         }
 
-                        //если значение false то к текушему индексу "i" добовляем полученное значение
-                        keybordQuantityArray[i] = itemNumberQ;
 
                     }
 
@@ -214,14 +236,21 @@
 
                     // Получение оплаты
                     double finalPayment = 0;
-
+                    double change = 0;
                     while (finalPayment < finSum)
                     {
                         Console.WriteLine("Введите '0' если хотите выйти...");
                         Console.Write($"К оплате, {finSum} рублей: ");
 
+                        // Получаем оплату
                         double finalPayment2 = double.Parse(Console.ReadLine());
                         finalPayment = finalPayment2;
+
+                        // считаем сдачу
+                        if (finalPayment > finSum)
+                        {
+                            change = finalPayment - finSum;
+                        }
 
                         if (finalPayment == 0)
                         {
@@ -243,7 +272,7 @@
                     }
 
                     Console.WriteLine("Оплата прошла успешно возврашайтесь снова :)");
-        
+                    Console.WriteLine("Ваша сдача: " + change + " рублей");
 
                 }
             }
